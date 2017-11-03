@@ -14,4 +14,12 @@ export class GameboardComponent implements OnInit {
     this.dealer.newDeck(6);
   }
 
+  shuffle(){
+    console.log("suffle");
+  }
+
+  newDeck(){
+    console.log('newDeck');   
+  }
+
 }
