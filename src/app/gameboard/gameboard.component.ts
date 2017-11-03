@@ -15,11 +15,10 @@ export class GameboardComponent implements OnInit {
   }
 
   shuffle(){
-    console.log("suffle");
+    console.log("shuffle");
   }
 
   newDeck(){
     console.log('newDeck');   
   }
-
 }
