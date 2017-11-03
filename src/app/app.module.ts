@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +9,7 @@ import { GameboardComponent } from './gameboard/gameboard.component';
 import { LandingComponent } from './landing/landing.component';
 import { RulesComponent } from './rules/rules.component';
 import { StrategyComponent } from './strategy/strategy.component';
+import { DealerService } from './gameboard/dealer.service';
 
 @NgModule({
   declarations: [
@@ -20,9 +22,10 @@ import { StrategyComponent } from './strategy/strategy.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [DealerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

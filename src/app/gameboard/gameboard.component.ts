@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DealerService } from './dealer.service';
 
 @Component({
   selector: 'bj-gameboard',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dealer: DealerService) { }
 
   ngOnInit() {
+    this.dealer.newDeck(6);
   }
 
 }
