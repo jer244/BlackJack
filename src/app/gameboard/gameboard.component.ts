@@ -11,14 +11,14 @@ export class GameboardComponent implements OnInit {
   constructor(private dealer: DealerService) { }
 
   ngOnInit() {
-    this.dealer.newDeck(6);
+    this.dealer.newDeck();
   }
 
   shuffle(){
-    console.log("shuffle");
+    this.dealer.shuffleDeck();
   }
 
   newDeck(){
-    console.log('newDeck');   
+    this.dealer.newDeck(); 
   }
 }

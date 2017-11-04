@@ -5,19 +5,32 @@ import { HttpClient } from '@angular/common/http';
 export class DealerService {
 
   currentDeckId: String;
+  currentShoe: Object = {};
 
   constructor(private http: HttpClient) { }
 
-  newDeck(count: Number) {
-    this.http.get(`https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=${count}`)
+  newDeck() {
+    this.http.get('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6')
       .subscribe((response) => {
         this.currentDeckId = response['deck_id'];
-        this.fillShoe(this.currentDeckId);
+        this.fillShoe();
       })
   }
 
-  fillShoe(deckId: String) {
-    this.http.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
-    .subscribe( response => console.log(response));
+  shuffleDeck() {
+    if(!this.currentDeckId){
+      this.newDeck();
+    } else {
+      this.http.get(`https://deckofcardsapi.com/api/deck/${this.currentDeckId}/shuffle/`).
+      subscribe( response => this.fillShoe());
+    }
+  }
+
+  fillShoe() {
+    this.http.get(`https://deckofcardsapi.com/api/deck/${this.currentDeckId}/draw/?count=312`)
+    .subscribe( response => {
+      Object.assign(this.currentShoe, response)
+      console.log(this.currentShoe)
+    });
   }
 }
