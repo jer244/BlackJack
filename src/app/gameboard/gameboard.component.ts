@@ -21,4 +21,8 @@ export class GameboardComponent implements OnInit {
   newDeck(){
     this.dealer.newDeck(); 
   }
+
+  dealHand(){
+    this.dealer.dealHand();
+  }
 }

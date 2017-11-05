@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { Card } from '../interfaces/card.interface';
+
 @Injectable()
 export class DealerService {
 
   currentDeckId: String;
-  currentShoe: Object = {};
+  currentShoe: Card[] = [];
+  topCard: Number = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -29,8 +32,11 @@ export class DealerService {
   fillShoe() {
     this.http.get(`https://deckofcardsapi.com/api/deck/${this.currentDeckId}/draw/?count=312`)
     .subscribe( response => {
-      Object.assign(this.currentShoe, response)
-      console.log(this.currentShoe)
+      this.currentShoe = response['cards'];
     });
+  }
+
+  dealHand(){
+
   }
 }
