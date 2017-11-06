@@ -11,6 +11,7 @@ import { LandingComponent } from './landing/landing.component';
 import { RulesComponent } from './rules/rules.component';
 import { StrategyComponent } from './strategy/strategy.component';
 import { DealerService } from './gameboard/dealer.service';
+import { DisplayHandComponent } from './gameboard/display-hand/display-hand.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { DealerService } from './gameboard/dealer.service';
     GameboardComponent,
     LandingComponent,
     RulesComponent,
-    StrategyComponent
+    StrategyComponent,
+    DisplayHandComponent
   ],
   imports: [
     BrowserModule,

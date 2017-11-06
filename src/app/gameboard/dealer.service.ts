@@ -9,8 +9,6 @@ export class DealerService {
   currentDeckId: string;
   currentShoe: Card[] = [];
   topCard: number = 0;
-  dealerStack: Card[] = [];
-  playerStack: Card[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +20,13 @@ export class DealerService {
       })
   }
 
+  fillShoe() {
+    this.http.get(`https://deckofcardsapi.com/api/deck/${this.currentDeckId}/draw/?count=312`)
+    .subscribe( response => {
+      this.currentShoe = response['cards'];
+    });
+  }
+
   shuffleDeck() {
     if(!this.currentDeckId){
       this.newDeck();
@@ -31,19 +36,10 @@ export class DealerService {
     }
   }
 
-  fillShoe() {
-    this.http.get(`https://deckofcardsapi.com/api/deck/${this.currentDeckId}/draw/?count=312`)
-    .subscribe( response => {
-      this.currentShoe = response['cards'];
-    });
-  }
-
-  dealHand(){
-    this.dealerStack.push(this.currentShoe[this.topCard]);
-    this.playerStack.push(this.currentShoe[this.topCard+1]);
-    this.dealerStack.push(this.currentShoe[this.topCard+2]);
-    this.playerStack.push(this.currentShoe[this.topCard+3]);
-    this.topCard += 4;
-    console.log(this.dealerStack, this.playerStack);
+  getCard<Card>(){
+    if(this.topCard<300){
+      this.topCard++;
+      return this.currentShoe[this.topCard-1];
+    }
   }
 }

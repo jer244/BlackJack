@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DealerService } from './dealer.service';
+import { Card } from '../interfaces/card.interface';
 
 @Component({
   selector: 'bj-gameboard',
@@ -7,6 +8,9 @@ import { DealerService } from './dealer.service';
   styleUrls: ['./gameboard.component.scss']
 })
 export class GameboardComponent implements OnInit {
+
+  dealerStack: Card[] = [];
+  playerStack: Card[] = [];
 
   constructor(private dealer: DealerService) { }
 
@@ -23,6 +27,12 @@ export class GameboardComponent implements OnInit {
   }
 
   dealHand(){
-    this.dealer.dealHand();
+    this.dealerStack = [];
+    this.playerStack = [];
+    this.dealerStack.push(this.dealer.getCard());
+    this.playerStack.push(this.dealer.getCard());
+    this.dealerStack.push(this.dealer.getCard());
+    this.playerStack.push(this.dealer.getCard());
+    console.log(this.dealerStack, this.playerStack)
   }
 }
