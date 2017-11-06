@@ -6,9 +6,11 @@ import { Card } from '../interfaces/card.interface';
 @Injectable()
 export class DealerService {
 
-  currentDeckId: String;
+  currentDeckId: string;
   currentShoe: Card[] = [];
-  topCard: Number = 0;
+  topCard: number = 0;
+  dealerStack: Card[] = [];
+  playerStack: Card[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -37,6 +39,11 @@ export class DealerService {
   }
 
   dealHand(){
-
+    this.dealerStack.push(this.currentShoe[this.topCard]);
+    this.playerStack.push(this.currentShoe[this.topCard+1]);
+    this.dealerStack.push(this.currentShoe[this.topCard+2]);
+    this.playerStack.push(this.currentShoe[this.topCard+3]);
+    this.topCard += 4;
+    console.log(this.dealerStack, this.playerStack);
   }
 }
