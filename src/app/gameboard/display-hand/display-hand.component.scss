@@ -1,9 +1,10 @@
-.card-image{
-    width: 10vw;
-}
-
 .wrapper {
     width: 22vw;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+}
+.card-image{
+    width: 8vw;
+}
+.card-container {
+    display: inline-block;
+    margin-right: -20px;
 }

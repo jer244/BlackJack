@@ -1,10 +1,18 @@
-<div class="wrapper">
+<!--
+  <div class="wrapper">
   <div *ngFor="let card of cards; let i = index;">
-    <div *ngIf="dealerHand && i == 0">
+    <div class='card-container' *ngIf="dealerHand && i == 0">
       <img class="card-image" src="../../assets/cards/back.png">
     </div>
-    <div *ngIf="!dealerHand || i != 0">
+    <div class='card-container' *ngIf="!dealerHand || i != 0">
       <img class="card-image" src="../../assets/cards/{{card?.code}}.png">
     </div>
   </div>
 </div>
+-->
+<div class="wrapper">
+    <div class="card-container" *ngFor="let card of cards; let i = index;">
+        <img *ngIf="dealerHand && i == 0" class="card-image card-container" src="../../assets/cards/back.png">
+        <img *ngIf="!dealerHand || i != 0" class="card-image card-container" src="../../assets/cards/{{card?.code}}.png">
+    </div>
+  </div>

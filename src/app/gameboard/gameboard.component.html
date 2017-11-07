@@ -1,26 +1,38 @@
 <div class="game-table">
   <div class="row">
-  <div class="col">
-    <div ngbDropdown class="d-inline-block">
-      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
-      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button class="dropdown-item" (click)="shuffle()">Request Shuffle</button>
-        <button class="dropdown-item" (click)="newDeck()">Request New Deck</button>
-        <button class="dropdown-item" (click)="dealHand()">Deal a Hand</button>
+    <div class="col">
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Options</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button class="dropdown-item" (click)="shuffle()">Request Shuffle</button>
+          <button class="dropdown-item" (click)="newDeck()">Request New Deck</button>
+          <button class="dropdown-item" (click)="dealHand()">Deal a Hand</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<h3>
-  Dealer Cards
-</h3>
-<div class="display-area">
-<bj-display-hand [dealerHand]='true' [cards]='dealerStack'></bj-display-hand>
-</div>
-<h3>
-  Player Cards
-</h3>
-<div class="display-area">
-<bj-display-hand [dealerHand]='false' [cards]='playerStack'></bj-display-hand>
-</div>
+  <div class="wrapper">
+    <div class="card-area">
+      <h3>
+        Dealer Cards
+      </h3>
+      <div class="card-display-area">
+        <bj-display-hand [dealerHand]='true' [cards]='dealerStack'></bj-display-hand>
+      </div>
+      <h3>
+        Player Cards
+      </h3>
+      <div class="card-display-area">
+        <bj-display-hand [dealerHand]='false' [cards]='playerStack'></bj-display-hand>
+      </div>
+    </div>
+    <div class="score-area">
+      <h5>
+        Dealer: {{dealerTotal}}
+        <br>
+        Player: {{playerTotal}}
+      </h5>
+    </div>
+  </div>
+
 </div>

@@ -1,5 +1,20 @@
-.game-table{
+@import "src/styles";
+.wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.game-table {
+    color: white;
     height: 100%;
     width: 100%;
-    background-color: green;
+    background-color: $color-felt;
+    padding: 15px;
+}
+
+.card-display-area {
+    border: white solid 2px;
+    border-radius: 6px;
+    width: 26vw;
+    height: 18vw;
 }

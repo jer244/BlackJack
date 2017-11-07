@@ -11,6 +11,9 @@ export class GameboardComponent implements OnInit {
 
   dealerStack: Card[] = [];
   playerStack: Card[] = [];
+  playerMove: boolean = false;
+  playerTotal: number = 0;
+  dealerTotal: number = 0;
 
   constructor(private dealer: DealerService) { }
 
@@ -34,5 +37,6 @@ export class GameboardComponent implements OnInit {
     this.dealerStack.push(this.dealer.getCard());
     this.playerStack.push(this.dealer.getCard());
     console.log(this.dealerStack, this.playerStack)
+    this.playerMove = true;
   }
 }
