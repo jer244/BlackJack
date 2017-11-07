@@ -1,3 +1,10 @@
-<div *ngFor="let card of cards">
-  <img src="{{card?.image}}">
+<div class="wrapper">
+  <div *ngFor="let card of cards; let i = index;">
+    <div *ngIf="dealerHand && i == 0">
+      <img class="card-image" src="../../assets/cards/back.png">
+    </div>
+    <div *ngIf="!dealerHand || i != 0">
+      <img class="card-image" src="../../assets/cards/{{card?.code}}.png">
+    </div>
+  </div>
 </div>

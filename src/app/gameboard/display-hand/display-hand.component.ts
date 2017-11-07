@@ -8,11 +8,13 @@ import { Card } from '../../interfaces/card.interface';
 })
 export class DisplayHandComponent implements OnInit {
 
+  @Input() dealerHand: boolean;
+  @Input() cards: Card[];
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  @Input() cards: Card[];
 
 }
