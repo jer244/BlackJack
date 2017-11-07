@@ -1,4 +1,5 @@
-<div class="row">
+<div class="game-table">
+  <div class="row">
   <div class="col">
     <div ngbDropdown class="d-inline-block">
       <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
@@ -10,5 +11,16 @@
     </div>
   </div>
 </div>
+<h3>
+  Dealer Cards
+</h3>
+<div class="display-area">
 <bj-display-hand [dealerHand]='true' [cards]='dealerStack'></bj-display-hand>
+</div>
+<h3>
+  Player Cards
+</h3>
+<div class="display-area">
 <bj-display-hand [dealerHand]='false' [cards]='playerStack'></bj-display-hand>
+</div>
+</div>
