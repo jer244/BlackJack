@@ -9,6 +9,7 @@ export class DealerService {
   currentDeckId: string;
   currentShoe: Card[] = [];
   topCard: number = 0;
+  private holeCard: Card;
 
   constructor(private http: HttpClient) { }
 
@@ -22,24 +23,37 @@ export class DealerService {
 
   fillShoe() {
     this.http.get(`https://deckofcardsapi.com/api/deck/${this.currentDeckId}/draw/?count=312`)
-    .subscribe( response => {
-      this.currentShoe = response['cards'];
-    });
+      .subscribe(response => {
+        this.currentShoe = response['cards'];
+      });
   }
 
   shuffleDeck() {
-    if(!this.currentDeckId){
+    if (!this.currentDeckId) {
       this.newDeck();
     } else {
       this.http.get(`https://deckofcardsapi.com/api/deck/${this.currentDeckId}/shuffle/`).
-      subscribe( response => this.fillShoe());
+        subscribe(response => this.fillShoe());
     }
   }
 
-  getCard<Card>(){
+  getCard<Card>() {
+    if (this.topCard < 300) {
+      this.topCard++;
+      return this.currentShoe[this.topCard - 1];
+    }
+  }
+
+  saveHole(){
     if(this.topCard<300){
       this.topCard++;
-      return this.currentShoe[this.topCard-1];
+      this.holeCard = this.currentShoe[this.topCard -1];
+    }
+  }
+
+  getHole(){
+    if(this.holeCard){
+      return this.holeCard;
     }
   }
 }

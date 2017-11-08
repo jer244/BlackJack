@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DealerService } from './dealer.service';
 import { Card } from '../interfaces/card.interface';
+import { Hand } from './hand';
 
 @Component({
   selector: 'bj-gameboard',
@@ -9,11 +10,22 @@ import { Card } from '../interfaces/card.interface';
 })
 export class GameboardComponent implements OnInit {
 
-  dealerStack: Card[] = [];
-  playerStack: Card[] = [];
-  playerMove: boolean = false;
-  playerTotal: number = 0;
-  dealerTotal: number = 0;
+  //CONTROL WHERE ACTION IS - 0 = DEALER; X = PLAYERX
+  action: number = 0; 
+  //HARD CODING PLAYERS TO 2 (1 PLUS DEALER)
+  //TODO: CHANGE TO VARIABLE WHEN IMPLEMENTING ABILITY TO PLAY MULTIPLE HANDS
+  numberOfPlayers: number = 2;
+  //ARRAY OF HAND OBJECTS
+  //DEALER = hands[0]
+  //PLAYERX = hands[x] - i.e. PLAYER1 = hands[1]
+  hands: Hand[];
+  holeCard: Card = {
+    code: 'HOLE',
+    image: '',
+    images: {},
+    suit: '',
+    value: '0'
+  };
 
   constructor(private dealer: DealerService) { }
 
@@ -30,13 +42,22 @@ export class GameboardComponent implements OnInit {
   }
 
   dealHand(){
-    this.dealerStack = [];
-    this.playerStack = [];
-    this.dealerStack.push(this.dealer.getCard());
-    this.playerStack.push(this.dealer.getCard());
-    this.dealerStack.push(this.dealer.getCard());
-    this.playerStack.push(this.dealer.getCard());
-    console.log(this.dealerStack, this.playerStack)
-    this.playerMove = true;
+    this.hands=[];
+    //PUSH HAND FOR DEALER AND SAVE THE HOLE CARD IN THE DEALERSERVICE
+    this.hands.push(new Hand());
+    this.hands[0].cards.push(this.holeCard);
+
+    this.dealer.saveHole();
+    //ADD A HAND FOR EACH PLAYER (INCLUDING THE DEALER) AND DEAL FIRST CARD TO EACH HAND
+    for(let i = 1; i<this.numberOfPlayers; i++){
+      this.hands.push(new Hand());
+      this.hands[i].cards.push(this.dealer.getCard());
+    }
+    //DEAL 2ND CARD TO EACH HAND
+    for(let i = 0; i<this.numberOfPlayers; i++){
+      this.hands[i].cards.push(this.dealer.getCard());
+    }
+    //GIVE CONTROL TO PLAYER
+    this.action = 1;
   }
 }

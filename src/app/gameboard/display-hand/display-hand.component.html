@@ -1,6 +1,5 @@
-<div class="wrapper">
+<div *ngIf="cards" class="wrapper">
     <div class="card-container" *ngFor="let card of cards; let i = index;">
-        <img *ngIf="dealerHand && i == 0" class="card-image card-container" src="../../assets/cards/back.png">
-        <img *ngIf="!dealerHand || i != 0" class="card-image card-container" src="../../assets/cards/{{card?.code}}.png">
+        <img class="card-image card-container" src="../../assets/cards/{{card?.code}}.png">
     </div>
-  </div>
+</div>
