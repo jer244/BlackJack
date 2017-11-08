@@ -11,26 +11,26 @@
       </div>
     </div>
   </div>
-  <div class="wrapper">
+  <div *ngIf="hands" class="wrapper">
     <div class="card-area">
       <h3>
         Dealer Cards
       </h3>
       <div class="card-display-area">
-        <bj-display-hand [dealerHand]='true' [cards]='dealerStack'></bj-display-hand>
+        <bj-display-hand [dealerHand]='true' [cards]='hands[0].cards'></bj-display-hand>
       </div>
       <h3>
         Player Cards
       </h3>
       <div class="card-display-area">
-        <bj-display-hand [dealerHand]='false' [cards]='playerStack'></bj-display-hand>
+        <bj-display-hand [dealerHand]='false' [cards]='hands[1].cards'></bj-display-hand>
       </div>
     </div>
     <div class="score-area">
       <h5>
-        Dealer: {{dealerTotal}}
+        Dealer: {{hands[0].count}}
         <br>
-        Player: {{playerTotal}}
+        Player: {{hands[1].count}}
       </h5>
     </div>
   </div>
