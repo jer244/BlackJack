@@ -49,6 +49,7 @@ export class DealerService {
       this.topCard++;
       this.holeCard = this.currentShoe[this.topCard -1];
     }
+    return;
   }
 
   getHole(){

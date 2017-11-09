@@ -11,26 +11,27 @@
       </div>
     </div>
   </div>
-  <div *ngIf="hands" class="wrapper">
+  <div class="wrapper">
     <div class="card-area">
       <h3>
         Dealer Cards
       </h3>
       <div class="card-display-area">
-        <bj-display-hand [dealerHand]='true' [cards]='hands[0].cards'></bj-display-hand>
+        <bj-display-hand *ngIf="hands" [dealerHand]='true' [cards]='hands[0].cards'></bj-display-hand>
       </div>
       <h3>
         Player Cards
       </h3>
       <div class="card-display-area">
-        <bj-display-hand [dealerHand]='false' [cards]='hands[1].cards'></bj-display-hand>
+        <bj-display-hand *ngIf="hands" [dealerHand]='false' [cards]='hands[1].cards'></bj-display-hand>
       </div>
+      <button class="btn" (click)="playerHit(1)">HIT</button>
     </div>
     <div class="score-area">
       <h5>
-        Dealer: {{hands[0].count}}
+        Dealer: <span *ngIf="hands">{{hands[0].count}}</span> 
         <br>
-        Player: {{hands[1].count}}
+        Player: <span *ngIf="hands">{{hands[1].count}}<span *ngIf="hands[1].hasAce && hands[1].count<11"> or {{hands[1].count + 10}}</span></span>
       </h5>
     </div>
   </div>

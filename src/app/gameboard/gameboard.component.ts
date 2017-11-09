@@ -60,4 +60,12 @@ export class GameboardComponent implements OnInit {
     //GIVE CONTROL TO PLAYER
     this.action = 1;
   }
+
+  playerHit(player){
+    this.hands[player].cards.push(this.dealer.getCard());
+  }
+
+  playerStay(player){
+
+  }
 }
