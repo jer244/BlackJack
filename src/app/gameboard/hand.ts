@@ -1,7 +1,5 @@
 import { Card } from "../interfaces/card.interface";
 
-
-
 export class Hand {
 
     cards: Card[];

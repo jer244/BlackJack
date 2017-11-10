@@ -56,16 +56,24 @@ export class GameboardComponent implements OnInit {
     //DEAL 2ND CARD TO EACH HAND
     for(let i = 0; i<this.numberOfPlayers; i++){
       this.hands[i].cards.push(this.dealer.getCard());
+      this.hands[i].count;
     }
     //GIVE CONTROL TO PLAYER
-    this.action = 1;
+    this.action = this.numberOfPlayers-1;
   }
 
   playerHit(player){
     this.hands[player].cards.push(this.dealer.getCard());
+    if(this.hands[player].count>21){
+      console.log('bust');
+      this.action--;
+      return;
+    }
+    return;
   }
 
   playerStay(player){
-
+    this.action--;
+    return;
   }
 }
