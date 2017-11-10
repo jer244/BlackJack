@@ -102,4 +102,8 @@ export class GameboardComponent implements OnInit {
       this.hands[0].cards.push(this.dealer.getCard());
     }
   }
+  playerBet(amount){
+    this.players[1].playerBet(amount);
+   }
+
 }
