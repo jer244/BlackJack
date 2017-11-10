@@ -74,6 +74,25 @@ export class GameboardComponent implements OnInit {
 
   playerStay(player){
     this.action--;
+    if(this.action==0){
+      this.dealerReveal();
+    }
     return;
+  }
+
+  playerDouble(player){
+    this.hands[player].cards.push(this.dealer.getCard());
+    this.action--;
+    if(this.action==0){
+      this.dealerReveal();
+    }
+    return;
+  }
+
+  dealerReveal(){
+    this.hands[0].cards[0] = this.dealer.getHole();
+    while(this.hands[0].count<17 && !(this.hands[0].hasAce && this.hands[0].count + 10 >16 && this.hands[0].count+10  <22)){
+      this.hands[0].cards.push(this.dealer.getCard());
+    }
   }
 }
