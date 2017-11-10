@@ -26,12 +26,12 @@
               <button type="button" class="btn btn-secondary" (click)="playerBet('add100')">+100</button>
               <button type="button" class="btn btn-secondary" (click)="playerBet('add10')">+10</button>
             </div>
-  
         Current Bet = {{players[1].currentBet}} 
         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary" (click)="playerBet('sub10')">-10</button>
             <button type="button" class="btn btn-secondary" (click)="playerBet('sub100')">-100</button>
           </div>
+          <br>
         Player1 - {{players[1].stack}} chips
       </div>
       <div *ngIf="action==1" class="btn-group btn-group-smm" role="group" aria-label="Basic example">
