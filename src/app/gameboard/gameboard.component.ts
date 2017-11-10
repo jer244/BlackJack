@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DealerService } from './dealer.service';
 import { Card } from '../interfaces/card.interface';
 import { Hand } from './hand';
+import { Player } from './player';
 
 @Component({
   selector: 'bj-gameboard',
@@ -19,6 +20,7 @@ export class GameboardComponent implements OnInit {
   //DEALER = hands[0]
   //PLAYERX = hands[x] - i.e. PLAYER1 = hands[1]
   hands: Hand[];
+  players: Player[] = [];
   holeCard: Card = {
     code: 'HOLE',
     image: '',
@@ -31,6 +33,8 @@ export class GameboardComponent implements OnInit {
 
   ngOnInit() {
     this.dealer.newDeck();
+    this.players.push(new Player);  //DEALER
+    this.players.push(new Player);  //PLAYER1
   }
 
   shuffle(){
@@ -67,6 +71,9 @@ export class GameboardComponent implements OnInit {
     if(this.hands[player].count>21){
       console.log('bust');
       this.action--;
+      if(this.action==0){
+        this.dealerReveal();
+      }
       return;
     }
     return;
