@@ -9,6 +9,7 @@ import { Card } from '../../interfaces/card.interface';
 export class DisplayHandComponent implements OnInit {
 
   @Input() dealerHand: boolean;
+  @Input() count: number;
   @Input() cards: Card[];
 
   constructor() { }
