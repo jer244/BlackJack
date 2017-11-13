@@ -1,10 +1,12 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-toggleable-md navbar-default">
     <div class="navbar-header">
       <a class="navbar-brand" [routerLink]="['/']">BlackJack</a>
     </div>
-    <ul class="nav navbar-nav navbar-right">
-      <li class="nav-item"><a [routerLink]="['/play']">Play</a></li>
-      <li class="nav-item"><a [routerLink]="['/rules']">Rules</a></li>
-      <li class="nav-item"><a [routerLink]="['/strategy']">Strategy</a></li>
+    <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="nav navbar-right">
+      <li class="nav-item"><a class="nav-link" [routerLink]="['/play']">Play</a></li>
+      <li class="nav-item"><a class="nav-link" [routerLink]="['/rules']">Rules</a></li>
+      <li class="nav-item"><a class="nav-link" [routerLink]="['/strategy']">Strategy</a></li>
     </ul>
+  </div>
 </nav>

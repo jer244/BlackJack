@@ -6,9 +6,12 @@ export class Hand {
 
     hasAce: boolean;
 
+    isBlackJack: boolean;
+
     constructor() {
         this.cards = [];
         this.hasAce = false;
+        this.isBlackJack = false;
     };
 
     get count() {

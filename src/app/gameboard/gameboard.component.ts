@@ -12,7 +12,7 @@ import { Player } from './player';
 export class GameboardComponent implements OnInit {
 
   //CONTROL WHERE ACTION IS - 0 = DEALER; X = PLAYERX
-  action: number = 0; 
+  action: number = 0;
   //HARD CODING PLAYERS TO 2 (1 PLUS DEALER)
   //TODO: CHANGE TO VARIABLE WHEN IMPLEMENTING ABILITY TO PLAY MULTIPLE HANDS
   numberOfPlayers: number = 2;
@@ -37,41 +37,45 @@ export class GameboardComponent implements OnInit {
     this.players.push(new Player);  //PLAYER1
   }
 
-  shuffle(){
+  shuffle() {
     this.dealer.shuffleDeck();
   }
 
-  newDeck(){
-    this.dealer.newDeck(); 
+  newDeck() {
+    this.dealer.newDeck();
   }
 
-  dealHand(){
-    this.hands=[];
-    //PUSH HAND FOR DEALER AND SAVE THE HOLE CARD IN THE DEALERSERVICE
-    this.hands.push(new Hand());
-    this.hands[0].cards.push(this.holeCard);
-
-    this.dealer.saveHole();
+  dealHand() {
+    this.hands = [];
     //ADD A HAND FOR EACH PLAYER (INCLUDING THE DEALER) AND DEAL FIRST CARD TO EACH HAND
-    for(let i = 1; i<this.numberOfPlayers; i++){
+    for (let i = 0; i < this.numberOfPlayers; i++) {
       this.hands.push(new Hand());
       this.hands[i].cards.push(this.dealer.getCard());
     }
     //DEAL 2ND CARD TO EACH HAND
-    for(let i = 0; i<this.numberOfPlayers; i++){
+    for (let i = 0; i < this.numberOfPlayers; i++) {
       this.hands[i].cards.push(this.dealer.getCard());
       this.hands[i].count;
     }
+    this.checkBlackJack();
     //GIVE CONTROL TO PLAYER
-    this.action = this.numberOfPlayers-1;
+    this.action = this.numberOfPlayers - 1;
   }
 
-  playerHit(player){
+  checkBlackJack() {
+    this.hands.forEach(hand => {
+      if (hand.hasAce && hand.count == 11) {
+        hand.isBlackJack = true;
+      }
+    })
+  }
+
+  playerHit(player) {
     this.hands[player].cards.push(this.dealer.getCard());
-    if(this.hands[player].count>21){
+    if (this.hands[player].count > 21) {
       console.log('bust');
       this.action--;
-      if(this.action==0){
+      if (this.action == 0) {
         this.dealerReveal();
       }
       return;
@@ -79,31 +83,36 @@ export class GameboardComponent implements OnInit {
     return;
   }
 
-  playerStay(player){
+  playerStay(player) {
     this.action--;
-    if(this.action==0){
+    if (this.action == 0) {
       this.dealerReveal();
     }
     return;
   }
 
-  playerDouble(player){
+  playerDouble(player) {
     this.hands[player].cards.push(this.dealer.getCard());
     this.action--;
-    if(this.action==0){
+    if (this.action == 0) {
       this.dealerReveal();
     }
     return;
   }
 
-  dealerReveal(){
-    this.hands[0].cards[0] = this.dealer.getHole();
-    while(this.hands[0].count<17 && !(this.hands[0].hasAce && this.hands[0].count + 10 >16 && this.hands[0].count+10  <22)){
+  dealerReveal() {
+    while (this.hands[0].count < 17 && !(this.hands[0].hasAce && this.hands[0].count + 10 > 16 && this.hands[0].count + 10 < 22)) {
       this.hands[0].cards.push(this.dealer.getCard());
     }
+    this.settleBets()
   }
-  playerBet(amount){
+
+  settleBets() {
+
+  }
+
+  playerBet(amount) {
     this.players[1].playerBet(amount);
-   }
+  }
 
 }

@@ -9,7 +9,6 @@ export class DealerService {
   currentDeckId: string;
   currentShoe: Card[] = [];
   topCard: number = 0;
-  private holeCard: Card;
 
   constructor(private http: HttpClient) { }
 
@@ -44,17 +43,4 @@ export class DealerService {
     }
   }
 
-  saveHole(){
-    if(this.topCard<300){
-      this.topCard++;
-      this.holeCard = this.currentShoe[this.topCard -1];
-    }
-    return;
-  }
-
-  getHole(){
-    if(this.holeCard){
-      return this.holeCard;
-    }
-  }
 }
