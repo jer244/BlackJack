@@ -12,7 +12,7 @@
         Dealer Cards
       </h3>
       <div class="card-display-area">
-        <bj-display-hand *ngIf="hands" [dealerHand]='true' [cards]='hands[0].cards' [count]='hands[0].count'></bj-display-hand>
+        <bj-display-hand *ngIf="hands" [dealerHand]='true' [hideHole]='action!=0' [cards]='hands[0].cards' [count]='hands[0].count'></bj-display-hand>
       </div>
       <h3>
         Player Cards
