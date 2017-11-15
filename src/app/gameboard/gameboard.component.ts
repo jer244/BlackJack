@@ -134,6 +134,7 @@ export class GameboardComponent implements OnInit {
     }
   }
 
+  //NEED TO ACCOUNT FOR SOFT COUNTS
   settleBets(dealerBust: boolean) {
     for (let i = this.players.length-1; i > 0; i--) {
       if(!this.hands[i].isPlayingHand || this.hands[i].hasBlackJack){
