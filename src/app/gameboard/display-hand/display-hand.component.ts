@@ -12,6 +12,7 @@ export class DisplayHandComponent implements OnInit {
   @Input() hideHole: boolean;
   @Input() count: number;
   @Input() cards: Card[];
+  @Input() hasAce: boolean;
 
   constructor() { }
 

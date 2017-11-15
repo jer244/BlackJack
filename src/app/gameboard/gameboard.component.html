@@ -18,7 +18,7 @@
         Player Cards
       </h3>
       <div class="card-display-area">
-        <bj-display-hand *ngIf="hands" [dealerHand]='false' [cards]='hands[1].cards' [count]='hands[1].count'></bj-display-hand>
+        <bj-display-hand *ngIf="hands" [dealerHand]='false' [cards]='hands[1].cards' [count]='hands[1].count' [hasAce]="hands[1].hasAce"></bj-display-hand>
       </div>
 
       <div *ngIf="players[1]">
