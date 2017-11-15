@@ -12,7 +12,7 @@
         Dealer Cards
       </h3>
       <div class="card-display-area">
-        <bj-display-hand *ngIf="hands" [dealerHand]='true' [hideHole]='action!=0' [cards]='hands[0].cards' [count]='hands[0].count'></bj-display-hand>
+        <bj-display-hand *ngIf="hands" [dealerHand]='true' [hideHole]='action!=0 && action!= -1' [cards]='hands[0].cards' [count]='hands[0].count'></bj-display-hand>
       </div>
       <h3>
         Player Cards
@@ -22,12 +22,12 @@
       </div>
 
       <div *ngIf="players[1]">
-        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+        <div *ngIf="action==-1" class="btn-group btn-group-sm" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-secondary" (click)="playerBet('add100')">+100</button>
           <button type="button" class="btn btn-secondary" (click)="playerBet('add10')">+10</button>
         </div>
         Current Bet = {{players[1].currentBet}}
-        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+        <div *ngIf="action==-1" class="btn-group btn-group-sm" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-secondary" (click)="playerBet('sub10')">-10</button>
           <button type="button" class="btn btn-secondary" (click)="playerBet('sub100')">-100</button>
         </div>

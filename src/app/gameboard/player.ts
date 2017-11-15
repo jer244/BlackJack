@@ -3,11 +3,17 @@
 export class Player {
 
     private stack: number;
+    private currentMessage: string;
     private currentBet: number;
 
     constructor() {
         this.stack = 990;
         this.currentBet = 10;
+        this.currentMessage = '';
+    }
+
+    get getCurrentBet(){
+        return this.currentBet;
     }
 
     playerBet(amount: string) {
@@ -42,5 +48,27 @@ export class Player {
         }
     }
 
+    winningHand(multiplier: number){
+        let winnings = this.currentBet * multiplier;
+        this.stack += this.currentBet + winnings;
+        this.currentBet = 10;
+        this.stack -= 10;
+    }
+
+    losingHand(){
+        if(this.stack >= 10){
+            this.stack -= 10;
+            this.currentBet = 10;
+        }else{
+            this.currentMessage = 'Out of money :(';
+            this.currentBet = 0;
+        }
+    }
+
+    pushHand(){
+        this.stack += this.currentBet;
+        this.currentBet = 10;
+        this.stack -= 10;
+    }
 
 }
