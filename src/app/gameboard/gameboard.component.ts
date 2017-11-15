@@ -68,24 +68,23 @@ export class GameboardComponent implements OnInit {
       }
     }
     //CHECK FOR DEALER BLACKJACK
-    if(this.hands[0].hasBlackJack){
-      this.dealerHasBlackjack();
+    if (this.hands[0].hasBlackJack) {
+      this.settleDealerBlackjack();
       return;
     }
     //PAY PLAYER BLACKJACKS
     this.hands.forEach((hand, index) => {
-      if(index > 0 && hand.hasBlackJack){
+      if (index > 0 && hand.hasBlackJack) {
         this.players[index].winningHand(1.5);
-        this.hands[index].isPlayingHand = false;
       }
     })
     //GIVE CONTROL TO PLAYER
-    this.action = this.numberOfPlayers - 1;
+    this.moveAction();
   }
 
-  dealerHasBlackjack(){
+  settleDealerBlackjack() {
     this.action = 0;
-    this.hands.forEach((hand, index)=>{
+    this.hands.forEach((hand, index) => {
       hand.hasBlackJack ? this.players[index].pushHand() : this.players[index].losingHand();
     });
     this.action = -1;
@@ -94,47 +93,69 @@ export class GameboardComponent implements OnInit {
   playerHit(player) {
     this.hands[player].cards.push(this.dealer.getCard());
     if (this.hands[player].count > 21) {
-      console.log('bust');
-      this.action--;
-      if (this.action == 0) {
-        this.dealerReveal();
-      }
-      return;
+      this.players[player].losingHand();
+      this.hands[player].isPlayingHand = false;
+      this.moveAction();
     }
     return;
   }
 
   playerStay(player) {
-    this.action--;
+    this.moveAction();
+  }
+
+  moveAction() {
+    if (this.action == -1) {
+      this.action = this.numberOfPlayers - 1;
+    } else {
+      this.action--;
+    }
+    while (this.hands[this.action].hasBlackJack && this.action != 0) {
+      this.action--;
+    }
     if (this.action == 0) {
       this.dealerReveal();
     }
-    return;
   }
 
   playerDouble(player) {
     this.hands[player].cards.push(this.dealer.getCard());
-    this.action--;
-    if (this.action == 0) {
-      this.dealerReveal();
-    }
-    return;
+    this.moveAction();
   }
 
   dealerReveal() {
     while (this.hands[0].count < 17 && !(this.hands[0].hasAce && this.hands[0].count + 10 > 16 && this.hands[0].count + 10 < 22)) {
       this.hands[0].cards.push(this.dealer.getCard());
     }
-    this.settleBets();
+    if (this.hands[0].count > 21) {
+      this.settleBets(true);
+    } else {
+      this.settleBets(false);
+    }
+  }
+
+  settleBets(dealerBust: boolean) {
+    for (let i = this.players.length-1; i > 0; i--) {
+      if(!this.hands[i].isPlayingHand || this.hands[i].hasBlackJack){
+        continue;
+      }
+      if (dealerBust) {
+        this.players[i].winningHand(1);
+      }else
+      if (this.hands[0].count == this.hands[i].count){
+        this.players[i].pushHand();
+      }else
+      if(this.hands[0].count > this.hands[i].count){
+        this.players[i].losingHand();
+      }else{
+        this.players[i].winningHand(1);
+      }
+    }
     this.action = -1;
   }
 
-  settleBets() {
-
-  }
-
   playerBet(amount) {
-    this.players[1].playerBet(amount);
+    this.players[1].changePlayerBet(amount);
   }
 
 }

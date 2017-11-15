@@ -16,7 +16,7 @@ export class Player {
         return this.currentBet;
     }
 
-    playerBet(amount: string) {
+    changePlayerBet(amount: string) {
         if (amount == 'add100' && this.stack >= 100) {
             this.currentBet += 100;
             this.stack -= 100;

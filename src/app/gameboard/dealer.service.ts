@@ -24,6 +24,7 @@ export class DealerService {
     this.http.get(`https://deckofcardsapi.com/api/deck/${this.currentDeckId}/draw/?count=312`)
       .subscribe(response => {
         this.currentShoe = response['cards'];
+        this.topCard = 0;
       });
   }
 
@@ -37,7 +38,7 @@ export class DealerService {
   }
 
   getCard<Card>() {
-    if (this.topCard < 300) {
+    if (this.topCard < 280) {
       this.topCard++;
       return this.currentShoe[this.topCard - 1];
     }
