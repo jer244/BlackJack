@@ -1,11 +1,12 @@
 <div class="game-table">
   <div class="row">
     <div class="col">
-      <button type="button" class="btn btn-secondary" (click)="dealHand()">Deal</button>
+      <button [disabled]="action!= -1" type="button" class="btn btn-secondary" (click)="dealHand()">Deal</button>
       <button type="button" class="btn btn-secondary" (click)="shuffle()">Shuffle</button>
       <button type="button" class="btn btn-secondary" (click)="newDeck()">New Cards</button>
     </div>
   </div>
+<div>{{dealerMessage}}</div>
   <div class="wrapper">
     <div class="card-area">
       <h3>

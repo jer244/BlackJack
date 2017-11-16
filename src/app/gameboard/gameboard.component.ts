@@ -13,6 +13,7 @@ export class GameboardComponent implements OnInit {
 
   //CONTROL WHERE ACTION IS [0 = DEALER] [X = PLAYERX] [-1 = PLACEBETS]
   action: number;
+  dealerMessage: string;
   //HARD CODING PLAYERS TO 2 (1 PLUS DEALER)
   //TODO: CHANGE TO VARIABLE WHEN IMPLEMENTING ABILITY TO PLAY MULTIPLE HANDS
   numberOfPlayers: number = 2;
@@ -29,6 +30,7 @@ export class GameboardComponent implements OnInit {
     this.players.push(new Player);  //DEALER
     this.players.push(new Player);  //PLAYER1
     this.action = -1;
+    this.dealerMessage = "Place Bets"
   }
 
   shuffle() {
@@ -40,6 +42,7 @@ export class GameboardComponent implements OnInit {
   }
 
   dealHand() {
+    this.dealerMessage = "";
     this.hands = [];
     //ADD A HAND FOR EACH PLAYER (INCLUDING THE DEALER)
     //CHECK IF PLAYER HAS ENOUGH $ TO MAKE MIN BET
@@ -154,6 +157,7 @@ export class GameboardComponent implements OnInit {
           }
     }
     this.action = -1;
+    this.dealerMessage = "Place Bets"
   }
 
   playerBet(amount) {
