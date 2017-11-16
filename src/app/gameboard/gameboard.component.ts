@@ -104,7 +104,7 @@ export class GameboardComponent implements OnInit {
     } else {
       this.action--;
     }
-    while (this.hands[this.action].hasBlackJack && this.action != 0) {
+    while ((!this.hands[this.action].isPlayingHand || this.hands[this.action].hasBlackJack) && this.action != 0) {
       this.action--;
     }
     if (this.action == 0) {
