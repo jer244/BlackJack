@@ -16,6 +16,16 @@ export class Player {
         return this.currentBet;
     }
 
+    doubleBet(){
+        if(this.stack >= this.currentBet){
+            this.stack -= this.currentBet;
+            this.currentBet += this.currentBet;
+        }else{
+            this.currentBet += this.stack;
+            this.stack = 0;
+        }
+    }
+
     changePlayerBet(amount: string) {
         if (amount == 'add100' && this.stack >= 100) {
             this.currentBet += 100;

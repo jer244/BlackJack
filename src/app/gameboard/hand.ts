@@ -10,8 +10,11 @@ export class Hand {
 
     isPlayingHand: boolean;
 
+    finalCount: number;
+
     constructor() {
         this.cards = [];
+        this.finalCount = 0;
         this.hasAce = false;
         this.hasBlackJack = false;
         this.isPlayingHand = true;
@@ -37,9 +40,16 @@ export class Hand {
         return (count);
     }
 
-    checkBlackjack(){
-        if(this.hasAce && this.cards.length==2 && this.count==11){
+    checkBlackjack() {
+        if (this.hasAce && this.cards.length == 2 && this.count == 11) {
             this.hasBlackJack = true;
+        }
+    }
+
+    calcFinalCount() {
+        this.finalCount = this.count;
+        if(this.hasAce && this.finalCount <= 11){
+            this.finalCount += 10;
         }
     }
 }

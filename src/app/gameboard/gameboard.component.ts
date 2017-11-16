@@ -21,14 +21,7 @@ export class GameboardComponent implements OnInit {
   //PLAYERX = hands[x] - i.e. PLAYER1 = hands[1]
   hands: Hand[];
   players: Player[] = [];
-  holeCard: Card = {
-    code: 'HOLE',
-    image: '',
-    images: {},
-    suit: '',
-    value: '0'
-  };
-
+  
   constructor(private dealer: DealerService) { }
 
   ngOnInit() {
@@ -101,6 +94,7 @@ export class GameboardComponent implements OnInit {
   }
 
   playerStay(player) {
+    this.hands[player].calcFinalCount();
     this.moveAction();
   }
 
@@ -119,7 +113,13 @@ export class GameboardComponent implements OnInit {
   }
 
   playerDouble(player) {
+    this.players[player].doubleBet();
     this.hands[player].cards.push(this.dealer.getCard());
+    this.hands[player].calcFinalCount();
+    if(this.hands[player].finalCount > 21){
+      this.players[player].losingHand();
+      this.hands[player].isPlayingHand = false;
+    }
     this.moveAction();
   }
 
@@ -130,27 +130,28 @@ export class GameboardComponent implements OnInit {
     if (this.hands[0].count > 21) {
       this.settleBets(true);
     } else {
+      this.hands[0].calcFinalCount();
       this.settleBets(false);
     }
   }
 
   //NEED TO ACCOUNT FOR SOFT COUNTS
   settleBets(dealerBust: boolean) {
-    for (let i = this.players.length-1; i > 0; i--) {
-      if(!this.hands[i].isPlayingHand || this.hands[i].hasBlackJack){
+    for (let i = this.players.length - 1; i > 0; i--) {
+      if (!this.hands[i].isPlayingHand || this.hands[i].hasBlackJack) {
         continue;
       }
       if (dealerBust) {
         this.players[i].winningHand(1);
-      }else
-      if (this.hands[0].count == this.hands[i].count){
-        this.players[i].pushHand();
-      }else
-      if(this.hands[0].count > this.hands[i].count){
-        this.players[i].losingHand();
-      }else{
-        this.players[i].winningHand(1);
-      }
+      } else
+        if (this.hands[0].finalCount == this.hands[i].finalCount) {
+          this.players[i].pushHand();
+        } else
+          if (this.hands[0].finalCount > this.hands[i].finalCount) {
+            this.players[i].losingHand();
+          } else {
+            this.players[i].winningHand(1);
+          }
     }
     this.action = -1;
   }
