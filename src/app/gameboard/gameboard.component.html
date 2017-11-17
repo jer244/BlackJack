@@ -18,10 +18,10 @@
       <h3 class="red-felt-lettering">BLACKJACK PAYS 3 TO 2</h3>
       <h4 class="black-felt-lettering">Dealer must draw to 16, and stay on all 17s</h4>
       <div class="place-bet-area">
-
+         <div class="coin-display">{{players[1].currentBet}}</div>
       </div>
       <h3>
-        Player Cards
+        Player 1
       </h3>
       <div class="card-display-area">
         <bj-display-hand *ngIf="hands" [dealerHand]='false' [cards]='hands[1].cards' [count]='hands[1].count' [hasAce]="hands[1].hasAce"></bj-display-hand>
@@ -32,7 +32,6 @@
           <button type="button" class="btn btn-secondary" (click)="playerBet('add100')">+100</button>
           <button type="button" class="btn btn-secondary" (click)="playerBet('add10')">+10</button>
         </div>
-        Current Bet = {{players[1].currentBet}}
         <div *ngIf="action==-1" class="btn-group btn-group-sm" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-secondary" (click)="playerBet('sub10')">-10</button>
           <button type="button" class="btn btn-secondary" (click)="playerBet('sub100')">-100</button>
