@@ -22,6 +22,7 @@ export class GameboardComponent implements OnInit {
   //PLAYERX = hands[x] - i.e. PLAYER1 = hands[1]
   hands: Hand[];
   players: Player[] = [];
+  showWinningChip: string = 'visible';
   
   constructor(private dealer: DealerService) { }
 
@@ -30,7 +31,10 @@ export class GameboardComponent implements OnInit {
     this.players.push(new Player);  //DEALER
     this.players.push(new Player);  //PLAYER1
     this.action = -1;
-    this.dealerMessage = "Place Bets"
+    this.dealerMessage = "Place Bets";
+    this.hands = [];
+    this.hands.push(new Hand);    //DEALER  
+    this.hands.push(new Hand);    //PLAYER1
   }
 
   shuffle() {
@@ -69,9 +73,10 @@ export class GameboardComponent implements OnInit {
       return;
     }
     //PAY PLAYER BLACKJACKS
-    this.hands.forEach((hand, index) => {
-      if (index > 0 && hand.hasBlackJack) {
-        this.players[index].winningHand(1.5);
+    this.hands.forEach((hand, i) => {
+      if (i > 0 && hand.hasBlackJack) {
+        this.players[i].winningHand(1.5);
+        this.hands[i].payWinningHand();
       }
     })
     //GIVE CONTROL TO PLAYER
@@ -146,6 +151,7 @@ export class GameboardComponent implements OnInit {
       }
       if (dealerBust) {
         this.players[i].winningHand(1);
+        this.hands[i].payWinningHand();
       } else
         if (this.hands[0].finalCount == this.hands[i].finalCount) {
           this.players[i].pushHand();
@@ -154,10 +160,13 @@ export class GameboardComponent implements OnInit {
             this.players[i].losingHand();
           } else {
             this.players[i].winningHand(1);
+            this.hands[i].payWinningHand();
           }
     }
+    setTimeout(()=>{
     this.action = -1;
-    this.dealerMessage = "Place Bets"
+    this.players.forEach(e => e.resetBets());
+    this.dealerMessage = "Place Bets"}, 2000)
   }
 
   playerBet(amount) {

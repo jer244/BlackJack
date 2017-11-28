@@ -29,8 +29,16 @@
     height: 6vw;
     text-align: center;
     padding-top: 2vw;
-
 }
+.winning-coin{
+    margin-top: -2vw;
+    visibility: hidden;
+}
+
+.showChip {
+    visibility: visible;
+}
+
 .red-felt-lettering{
     color: #b30000;
 }
@@ -45,4 +53,8 @@
     width: 18vw;
     height: 15vw;
     padding: 5px;
+}
+
+.mat-mini-fab{
+    background-color: $color-primary;
 }
