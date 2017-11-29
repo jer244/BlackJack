@@ -167,7 +167,7 @@ export class GameboardComponent implements OnInit {
     this.action = -1;
     this.players.forEach(e => e.resetBets());
     this.dealerMessage = "Place Bets"}, 2000)
-  }
+  } 
 
   playerBet(amount) {
     this.players[1].changePlayerBet(amount);

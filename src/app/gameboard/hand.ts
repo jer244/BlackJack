@@ -61,4 +61,8 @@ export class Hand {
     payWinningHand(){
         this.showWinChip = true;
     }
+
+    takeLosingChips(){
+        
+    }
 }
