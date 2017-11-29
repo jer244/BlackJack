@@ -76,7 +76,7 @@ export class GameboardComponent implements OnInit {
     this.hands.forEach((hand, i) => {
       if (i > 0 && hand.hasBlackJack) {
         this.players[i].winningHand(1.5);
-        this.hands[i].payWinningHand();
+        this.hands[i].showWinningChips();
       }
     })
     //GIVE CONTROL TO PLAYER
@@ -89,7 +89,6 @@ export class GameboardComponent implements OnInit {
       if (hand.hasBlackJack) {
         this.players[i].pushHand();
       } else {
-        this.players[i].losingHand();
         this.hands[i].takeLosingChips();
       }
     });
@@ -99,7 +98,6 @@ export class GameboardComponent implements OnInit {
   playerHit(player) {
     this.hands[player].cards.push(this.dealer.getCard());
     if (this.hands[player].count > 21) {
-      this.players[player].losingHand();
       this.hands[player].takeLosingChips();
       this.hands[player].isPlayingHand = false;
       this.moveAction();
@@ -131,7 +129,7 @@ export class GameboardComponent implements OnInit {
     this.hands[player].cards.push(this.dealer.getCard());
     this.hands[player].calcFinalCount();
     if (this.hands[player].finalCount > 21) {
-      this.players[player].losingHand();
+      this.hands[player].takeLosingChips();
       this.hands[player].isPlayingHand = false;
     }
     this.moveAction();
@@ -157,17 +155,16 @@ export class GameboardComponent implements OnInit {
       }
       if (dealerBust) {
         this.players[i].winningHand(1);
-        this.hands[i].payWinningHand();
+        this.hands[i].showWinningChips();
       } else
         if (this.hands[0].finalCount == this.hands[i].finalCount) {
           this.players[i].pushHand();
         } else
           if (this.hands[0].finalCount > this.hands[i].finalCount) {
-            this.players[i].losingHand();
             this.hands[i].takeLosingChips();
           } else {
             this.players[i].winningHand(1);
-            this.hands[i].payWinningHand();
+            this.hands[i].showWinningChips();
           }
     }
     setTimeout(() => {

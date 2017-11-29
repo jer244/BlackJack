@@ -46,44 +46,26 @@ export class Player {
 
     }
 
-    settleBet(didWin: boolean) {
-        if (didWin) {
-            this.stack += this.currentBet;
-        }
-        else {
-            this.stack -= this.currentBet;
-        } if (this.stack >= 10) {
-            this.currentBet = 10;
-            this.stack -= 10;
-        } else {
-            this.currentBet = 0;
-        }
-    }
-
     winningHand(multiplier: number) {
         let winnings = this.currentBet * multiplier;
         this.stack += this.currentBet + winnings;
     }
 
     losingHand() {
+    }
+
+    resetBets(){        
         if (this.stack >= 10) {
             this.stack -= 10;
             this.currentBet = 10;
         } else {
-            this.currentMessage = 'Out of money :(';
+            this.currentMessage = 'Unable to make minimum bet :(';
             this.currentBet = 0;
         }
     }
 
-    resetBets(){        
-        this.currentBet = 10;
-        this.stack -= 10;
-    }
-
     pushHand() {
         this.stack += this.currentBet;
-        this.currentBet = 10;
-        this.stack -= 10;
     }
 
 }
