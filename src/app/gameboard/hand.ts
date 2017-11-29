@@ -63,6 +63,6 @@ export class Hand {
     }
 
     takeLosingChips(){
-        
+        this.showBetChip = false;
     }
 }

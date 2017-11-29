@@ -23,7 +23,7 @@ export class GameboardComponent implements OnInit {
   hands: Hand[];
   players: Player[] = [];
   showWinningChip: string = 'visible';
-  
+
   constructor(private dealer: DealerService) { }
 
   ngOnInit() {
@@ -85,8 +85,13 @@ export class GameboardComponent implements OnInit {
 
   settleDealerBlackjack() {
     this.action = 0;
-    this.hands.forEach((hand, index) => {
-      hand.hasBlackJack ? this.players[index].pushHand() : this.players[index].losingHand();
+    this.hands.forEach((hand, i) => {
+      if (hand.hasBlackJack) {
+        this.players[i].pushHand();
+      } else {
+        this.players[i].losingHand();
+        this.hands[i].takeLosingChips();
+      }
     });
     this.action = -1;
   }
@@ -95,6 +100,7 @@ export class GameboardComponent implements OnInit {
     this.hands[player].cards.push(this.dealer.getCard());
     if (this.hands[player].count > 21) {
       this.players[player].losingHand();
+      this.hands[player].takeLosingChips();
       this.hands[player].isPlayingHand = false;
       this.moveAction();
     }
@@ -124,7 +130,7 @@ export class GameboardComponent implements OnInit {
     this.players[player].doubleBet();
     this.hands[player].cards.push(this.dealer.getCard());
     this.hands[player].calcFinalCount();
-    if(this.hands[player].finalCount > 21){
+    if (this.hands[player].finalCount > 21) {
       this.players[player].losingHand();
       this.hands[player].isPlayingHand = false;
     }
@@ -158,16 +164,18 @@ export class GameboardComponent implements OnInit {
         } else
           if (this.hands[0].finalCount > this.hands[i].finalCount) {
             this.players[i].losingHand();
+            this.hands[i].takeLosingChips();
           } else {
             this.players[i].winningHand(1);
             this.hands[i].payWinningHand();
           }
     }
-    setTimeout(()=>{
-    this.action = -1;
-    this.players.forEach(e => e.resetBets());
-    this.dealerMessage = "Place Bets"}, 2000)
-  } 
+    setTimeout(() => {
+      this.action = -1;
+      this.players.forEach(e => e.resetBets());
+      this.dealerMessage = "Place Bets"
+    }, 2000)
+  }
 
   playerBet(amount) {
     this.players[1].changePlayerBet(amount);

@@ -19,7 +19,7 @@
       <h4 class="black-felt-lettering">Dealer must draw to 16, and stay on all 17s</h4>
       <div class="place-bet-area">
         <div *ngIf="hands" class="coin-display winning-coin" [ngClass]="{showChip: hands[1].showWinChip && action!= -1}">{{players[1].currentBet}}</div>
-        <div *ngIf="hands" class="coin-display">{{players[1].currentBet}}</div>
+        <div *ngIf="hands" class="coin-display" [ngClass]="{hideChip: !hands[1].showBetChip && action!= -1}" >{{players[1].currentBet}}</div>
       </div>
       <h3>
         Player 1
