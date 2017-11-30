@@ -17,12 +17,8 @@ export class GameboardComponent implements OnInit {
   //HARD CODING PLAYERS TO 2 (1 PLUS DEALER)
   //TODO: CHANGE TO VARIABLE WHEN IMPLEMENTING ABILITY TO PLAY MULTIPLE HANDS
   numberOfPlayers: number = 2;
-  //ARRAY OF HAND OBJECTS
-  //DEALER = hands[0]
-  //PLAYERX = hands[x] - i.e. PLAYER1 = hands[1]
-  hands: Hand[];
+  hands: Hand[];    //DEALER = hands[0]
   players: Player[] = [];
-  showWinningChip: string = 'visible';
 
   constructor(private dealer: DealerService) { }
 
